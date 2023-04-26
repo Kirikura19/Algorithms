@@ -1,8 +1,11 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class KnuthMorrisPratt {
 
     //O(pattern.length)
-    public static int[] findPrefixArray(String pattern)
-    {
+    public static int[] findPrefixArray(String pattern) {
         String[] a = pattern.split("");
         int[] lsp = new int[pattern.length()];
 
@@ -15,21 +18,21 @@ public class KnuthMorrisPratt {
                 lsp[i] = j+1;
                 i++; j++;
             }
-            else{
+            else {
                 if(j == 0) {
                     lsp[i] = 0;
                     i++;
                 }
-                else
+                else {
                     j = lsp[j-1];
+                }
             }
         }
         return lsp;
     }
 
     //O(line.length)
-    public static void KMP(String pattern, String line)
-    {
+    public static int[] KMP(String pattern, String line) {
         String[] t = pattern.split("");
         String[] a = line.split("");
 
@@ -37,32 +40,41 @@ public class KnuthMorrisPratt {
 
         int i = 0;
         int j = 0;
+        List<Integer> indices = new ArrayList<>();
 
-        while(i < a.length)
-        {
+        while(i < a.length) {
             if(a[i].equals(t[j])) {
                 i++; j++;
                 if(j == t.length) {
-                    System.out.println("Образец найден");
-                    //System.exit(0);
+                    indices.add(i - j);
+                    j = lsp[j-1];
                 }
             }
-            else{
-                if(j > 0)
+            else {
+                if(j > 0) {
                     j = lsp[j-1];
-                else
+                }
+                else {
                     i++;
+                }
             }
         }
-        if(i == a.length) {
-            System.out.println("Образец не найден");
-            System.exit(0);
+
+        int[] result = new int[indices.size()];
+        for(int k = 0; k < result.length; k++) {
+            result[k] = indices.get(k);
         }
+        return result;
     }
 
     //O(n + m)
-    public static void main(String[] args)
-    {
-        KMP("аабааб", "абабабабаабаабааббабабаб");
+    public static void main(String[] args) {
+        int[] indices = KMP("аабааб", "абабабабаабаабааббабабаб");
+        if(indices.length == 0) {
+            System.out.println("Образец не найден");
+        }
+        else {
+            System.out.println("Образец найден в следующих позициях: " + Arrays.toString(indices));
+        }
     }
 }
