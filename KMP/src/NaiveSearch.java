@@ -3,6 +3,7 @@ import java.util.List;
 
 public class NaiveSearch {
 
+    //O(n*m)
     private String string;
     private String pattern;
 

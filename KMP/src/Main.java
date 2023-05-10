@@ -2,15 +2,16 @@ import java.util.Arrays;
 
 public class Main {
 
-    final static String sample = "A".repeat(500000) + "B";
-    static final String line = "A".repeat(1000000) + "B";
+    final static String sample = "A".repeat(50000) + "B";
+    static final String line = "A".repeat(100000) + "B";
 
     public static void main(String[] args) {
-       // KMP(sample, line);
-        KMP("АБАБВГА", "АБАБВАБАБАБВГА");
 
-        // NS(sample, line);
-      //  NS("ЛИИЛЛИИАЛИИЛ", "ЛИИЛЛИИАЛИИЛЛИИЛЛИИАЛИИЛЛИИЛЛИИАЛИИЛЛИИЛЛИИАЛИИЛЛИИЛЛИИАЛИИЛЛИИЛЛИИАЛИИЛ");
+        KMP(sample, line); //39845000
+        //KMP("АБАБВГА", "АБАБАБВГА");
+
+        NS(sample, line); //4131612400
+        //NS("ЛИИЛЛИИАЛИИЛ", "ЛИИЛЛИИАЛИИЛЛИИЛЛИИАЛИИЛЛИИЛЛИИАЛИИЛЛИИЛЛИИАЛИИЛЛИИЛЛИИАЛИИЛЛИИЛЛИИАЛИИЛ");
     }
 
     public static void NS(String sample, String line)
@@ -37,7 +38,6 @@ public class Main {
         Long endTime = System.nanoTime();
 
         System.out.println("Время исполнения " + (endTime - startTime));
-        System.out.println(Arrays.toString(kmp.lsp));
     }
 
 }
